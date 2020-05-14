@@ -1,9 +1,9 @@
 import React from 'react';
 
-const menu = (props) => {
+const drawToggle = (props) => {
     return (
         <div onClick={props.clicked}>MENU</div>
     );
 };
 
-export default menu;
+export default drawToggle;
