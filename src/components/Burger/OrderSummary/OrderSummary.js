@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../containers/Layout/hoc/Aux/Aux';
 import Button from '../../UI/Modal/Button/Button';
 
 
