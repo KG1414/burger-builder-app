@@ -5,6 +5,7 @@ import Aux from './Aux';
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
+        _Unmounted = false;
         constructor(props) {
             super(props);
             this.state = { error: null };
@@ -12,7 +13,9 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
         reqInterceptor = axios.interceptors.request.use(
             req => {
-                this.setState({ error: null })
+                if (this._Unmounted) {
+                    this.setState({ error: null })
+                }
                 return req;
             });
 
@@ -21,9 +24,14 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 this.setState({ error: error });
             });
 
+        componentDidMount() {
+            this._Unmounted = true;
+        }
+
         componentWillUnmount() {
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptor);
+            this._Unmounted = false;
         }
 
         errorConfirmedHandler = () => {
