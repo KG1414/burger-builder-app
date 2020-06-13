@@ -32,6 +32,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         axiosOrders.get('https://react-burger-builder-cb99d.firebaseio.com/ingredients.json')
             .then(response => {
                 this.setState({ ingredients: response.data });
@@ -86,29 +87,16 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // alert('You continue');
-        this.setState({ loading: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            totalPrice: this.state.totalPrice,
-            customer: {
-                name: 'Kyle Gallard',
-                address: {
-                    street: '14 Elf st',
-                    postCode: '3000',
-                    country: 'Australia'
-                },
-                email: 'kylegallard@gmail.com'
-            },
-            deliveryMethod: 'fastest'
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
-        axiosOrders.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => {
-                this.setState({ loading: false, purchasing: false });
-            });
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
 
@@ -161,3 +149,36 @@ class BurgerBuilder extends Component {
 }
 
 export default withErrorHandler(BurgerBuilder, axiosOrders);
+
+// There is another approach without using componentDidMount that i think can be useful.
+
+// BurgerBuilder:
+
+//  purchaseContinueHandler = () => {
+//     this.setState({ doCheckout: true });
+//   };
+
+// render() {
+//   ...
+//     return (
+//       <Aux>
+//         {this.state.doCheckout ? (
+//           <Redirect
+//             to={‌{
+//               pathname: "/checkout",
+//               ingredients: this.state.ingredients,
+//             }}
+//           />
+//         ) : null}
+// ....
+// }
+// Checkout:
+
+// class Checkout extends Component {
+//   state = {
+//     ingredients: this.props.location.ingredients
+//       ? this.props.location.ingredients
+//       : {},
+//   };
+// ...
+// }
