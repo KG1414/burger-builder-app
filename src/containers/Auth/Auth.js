@@ -7,6 +7,7 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
+import { checkValidity } from '../../shared/utility';
 
 class Auth extends Component {
     state = {
@@ -49,45 +50,15 @@ class Auth extends Component {
         }
     };
 
-    checkValidility(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    };
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidility(event.target.value, this.state.controls[controlName].validation),
-                touched: true
+            ...this.state.controls,   // make a copy
+            [controlName]: {         // find that control name in ...this.state.controls
+                ...this.state.controls[controlName],      // get down to that control name to reach next values?
+                value: event.target.value,                // change value to input
+                valid: checkValidity(event.target.value, this.state.controls[controlName].validation),         // check validility + update valid
+                touched: true    // change to true
             }
         };
         this.setState({ controls: updatedControls });
