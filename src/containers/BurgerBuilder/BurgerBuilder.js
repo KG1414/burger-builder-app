@@ -22,7 +22,6 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.isAuthenticated);
         this.props.onInitIngredients();
     }
 

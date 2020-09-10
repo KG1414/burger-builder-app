@@ -5,7 +5,6 @@ import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
-    console.log(props);
     let transformedIngredients = [];
     for (let key in props.ingredients) { // let iterates over keys in an object
         for (let i = 0; i < props.ingredients[key]; i++) {
