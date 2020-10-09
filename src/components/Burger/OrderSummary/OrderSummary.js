@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Aux from '../../../containers/Layout/hoc/Aux/Aux';
-import Button from '../../UI/Modal/Button/Button';
+import Button from '../../UI/Button/Button';
 
 
 

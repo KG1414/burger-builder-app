@@ -1,25 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
-
-//     const transformedIngredients = Object.keys(props.ingredients)
-//         .map(igKey => {
-//             return [...Array(props.ingredients[igKey])].map((_, i) => { // _ underscore ignore element itself
-//                 return <BurgerIngredient key={igKey + i} type={igKey} />
-//             });
-//         })
-//         .flat();
-// or instead of flat use .reduce((arr, el) => {
-//                              return arr.concat(el)  
-//                             }, []);
-//                  
-
-
-// for (let index = 0; index < Array(props.ingredients[igKey]).length; index++) {
-//     return <BurgerIngredient key={igKey + index} type={igKey} />
-
-// }
 
 const burger = (props) => {
     let transformedIngredients = [];
@@ -42,7 +25,7 @@ const burger = (props) => {
     );
 };
 
-export default burger;
+export default withRouter(burger);
 
 
 

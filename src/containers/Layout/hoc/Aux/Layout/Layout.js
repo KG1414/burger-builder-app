@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-<<<<<<< HEAD:src/containers/Layout/Layout.js
-import Aux from '../Layout/hoc/Aux/Aux';
-=======
 import Aux from '../Aux';
->>>>>>> origin/feature:src/containers/Layout/hoc/Aux/Layout/Layout.js
 import classes from './Layout.module.css';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../../../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../../../../components/Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
     state = {
