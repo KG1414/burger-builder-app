@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default (httpClient) => {
+export default httpClient => {
     const [error, setError] = useState(null);
     const [unmounted, setMounted] = useState(false);
 
@@ -19,6 +19,7 @@ export default (httpClient) => {
     useEffect(() => {
         setMounted(true);
     }, []);
+
 
     useEffect(() => {
         return () => {

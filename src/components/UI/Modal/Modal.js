@@ -30,5 +30,5 @@ export default React.memo(
     Modal,
     (prevProps, nextProps) =>
         prevProps.show === nextProps.show &&
-        prevProps.children === prevProps.children
+        prevProps.children === nextProps.children
 );
