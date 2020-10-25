@@ -20,11 +20,11 @@ const Auth = React.lazy(() => {
 });
 
 const App = (props) => {
+  const { onTryAutoSignup } = props;
+
   useEffect(() => {
-    if (props !== null) {
-      props.onTryAutoSignup();
-    }
-  });
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
 
   let routes = (
