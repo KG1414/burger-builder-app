@@ -20,14 +20,13 @@ export default httpClient => {
         setMounted(true);
     }, []);
 
-
     useEffect(() => {
         return () => {
             httpClient.interceptors.request.eject(reqInterceptor);
             httpClient.interceptors.response.eject(resInterceptor);
             setMounted(false);
         };
-    }, [reqInterceptor, resInterceptor]);
+    }, [reqInterceptor, resInterceptor, httpClient.interceptors.request, httpClient.interceptors.response]);
 
     const errorConfirmedHandler = () => {
         setError(null);
